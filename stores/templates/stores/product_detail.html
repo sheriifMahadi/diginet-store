@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {{product.title}} {% endblock %}
+
+{% block content %} 
+<main class="pt-5">
+    <div class="row g-3">
+        <div class="col-md-5 col-lg-5 order-md-first bg-light">
+            <img class="img-fluid mx-auto d-block" width="200px" alt="Responsive image" src="{{product.image.url}}">
+        </div>
+        <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
+            <h1 class="mb-0 h4">{{ product.title }}</h1>
+            <span class="opacity-50">
+                <a href="{% url 'vendor_detail' product.user.id %}" style="color:black;text-decoration:none;">
+                    {% firstof product.user.get_full_name product.user.username %}
+                </a>
+            </span>
+            <p>{{ product.desc|slice:":355" }}...</p>
+            <div class="border">
+                <div class="col border-bottom">
+                    <div class="row p-3">
+                        <div class="col-6 text-end"><span class="h4 fw-bold">${{ product.price }}</span></div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row p-3">
+                        <div class="col-6">
+                        {% if product.user == request.user %}
+                            <button type="button" id="rm_watch-button" value="{{product.id}}" class="btn btn-danger btn-sm">
+                                <a href="{% url 'delete_product' product.id %}" style="color:white;text-decoration:none;">Remove product</a>
+                            </button>
+                        {% else %}
+                            <button type="button" id="watch-button" value="{{product.id}}" class="btn btn-success btn-sm">
+                                <a href="" style="color:white;text-decoration:none;">Save</a>
+                            </button>
+                        {% endif %}
+                        </div>
+                        <div class="col-6 text-end">
+                            {% if product.user == request.user %}
+                            <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success btn-sm">
+                                <a href="{% url 'edit_product' product.id %}" style="color:white;text-decoration:none;">Edit product</a>
+                            </button>
+                            {% else %}
+                                <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success btn-sm">
+                                    <a href="{% url 'add_to_cart' product.id %}" style="color:white;text-decoration:none;">Add to cart</a>
+                                </button>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

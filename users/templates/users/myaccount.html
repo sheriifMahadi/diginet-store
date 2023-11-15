@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+
+    <div class="pb-3 h2">My account</div>
+
+    <button class="btn btn-danger">
+        <a href="{% url 'logout' %}" style="color:white;text-decoration:none;">Logout</a>
+    </button>
+{% endblock %}

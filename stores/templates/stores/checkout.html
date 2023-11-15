@@ -1,0 +1,19 @@
+{% extends 'main/base.html'%}
+
+{% block title %}checkout{% endblock %}
+
+
+{% block content %}
+    <div class="pb-3 h2">Checkout</div>
+    <p class="opacity-50">
+        Total cost: #{{cart.get_total_cost}}
+    </p>
+
+    <form method='post' action='.'>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-success btn-sm">
+            Checkout
+        </button>
+    </form>
+{% endblock %}
